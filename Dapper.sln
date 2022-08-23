@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper", "Dapper\Dapper.csproj", "{D11DF035-CD5B-4CBF-9BD0-2C2F1205D2AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperSQLServer", "DapperSQLServer\DapperSQLServer.csproj", "{1BA4D034-ABCE-41BA-A70C-7F797391CE4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D11DF035-CD5B-4CBF-9BD0-2C2F1205D2AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D11DF035-CD5B-4CBF-9BD0-2C2F1205D2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D11DF035-CD5B-4CBF-9BD0-2C2F1205D2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D11DF035-CD5B-4CBF-9BD0-2C2F1205D2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA4D034-ABCE-41BA-A70C-7F797391CE4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA4D034-ABCE-41BA-A70C-7F797391CE4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA4D034-ABCE-41BA-A70C-7F797391CE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA4D034-ABCE-41BA-A70C-7F797391CE4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
