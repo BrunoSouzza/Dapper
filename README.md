@@ -1,5 +1,13 @@
 # .Net 6, Dapper and SQL Server with Docker (en-us)
 
+> **Note**
+> This is a simple example
+
+> **Notice**
+> This code must not go to PRODUCTION
+
+---
+<br>
 > Install Nuget Packages
 
 In this project we will develop a simple CRUD using .Net 6, Dapper and SQL Server. Let's go :rocket:!
