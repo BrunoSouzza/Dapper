@@ -22,6 +22,14 @@ Install-Package System.Data.SqlClient -Version 4.8.3
 
 # .Net 6, Dapper, and SQL Server com Docker (pt-br)
 
+
+> **Note**
+> Trata-se de um simples exemplo
+
+> **Warning**
+> Este código não deve ir para PRODUÇÃO
+
+
 > Instalando pacotes do Nuget
 
 Neste projeto nós vamos desenvolver um simples CRUD usando .Net 6, Dapper e SQL Server. Vamos lá :rocket:! 
@@ -79,6 +87,99 @@ GO
 ```
 
 > .Net 6 e Dapper
+
 Finalmente iniciaremos o desenvolvimento usando C#. :joy:
 
+Vamos criar uma pasta chamada Entities e dentro dessa pasta criamos uma classe chamada "Car". Basicamente essa classe deve ser espelho do nosso Banco de Dados.
 
+```cs
+public class Car
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int Year { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
+```
+
+Próximo passo é a criação da nossa Controller Car.
+
+* Dependências
+```cs
+using Dapper;
+using DapperSQLServer.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System.Data.SqlClient;
+```
+* Classe 
+```cs
+namespace DapperSQLServer.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CarController : ControllerBase
+    {
+        private readonly IConfiguration _configuration;
+        private readonly string _connectionString;
+
+        public CarController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _connectionString = _configuration.GetConnectionString("Factory");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCars()
+        {
+            using var connection = new SqlConnection(_connectionString);
+            var cars = await connection.QueryAsync<Car>("select * from Car");
+
+            return Ok(cars);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCarById(int id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            var car = await connection.QueryFirstAsync<Car>("select * from Car where id = @Id", new { Id = id });
+            return Ok(car);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCar(Car request)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            await connection.ExecuteAsync("insert into Car (name, year, createdAt) values (@name, @year, @createdAt)", new
+            {
+                Name = request.Name,
+                Year = request.Year,
+                CreatedAt = DateTime.UtcNow
+            });
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateCar(Car request)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            await connection.ExecuteAsync("update Car set name = @Name, year = @Year", new
+            {
+                Name = request.Name,
+                Year = request.Year
+            });
+
+            return Ok(GetCarById(request.Id));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCarById(int id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            await connection.ExecuteAsync("delete Car where id = @Id", new { Id = id });
+            return Ok(GetCars());
+        }
+    }
+}
+```
+Pronto, nosso simples exemplo está pronto. 
